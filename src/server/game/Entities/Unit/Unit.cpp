@@ -13264,13 +13264,13 @@ int32 Unit::ModSpellDuration(SpellInfo const* spellProto, Unit const* target, in
                 }
                 break;
             case SPELLFAMILY_PALADIN:
-                if (spellProto->SpellFamilyFlags[0] & 0x00000002 && spellProto->SpellIconID == 298)
+                if ((spellProto->SpellFamilyFlags[0] & 0x00000002) && spellProto->SpellIconID == 298)
                 {
                     // Glyph of Blessing of Might
                     if (AuraEffect* aurEff = GetAuraEffect(57958, 0))
                         duration += aurEff->GetAmount() * MINUTE * IN_MILLISECONDS;
                 }
-                else if (spellProto->SpellFamilyFlags[0] & 0x00010000 && spellProto->SpellIconID == 306)
+                else if ((spellProto->SpellFamilyFlags[0] & 0x00010000) && spellProto->SpellIconID == 306)
                 {
                     // Glyph of Blessing of Wisdom
                     if (AuraEffect* aurEff = GetAuraEffect(57979, 0))
@@ -16462,8 +16462,8 @@ void Unit::ApplyResilience(Unit const* victim, float* crit, int32* damage, bool 
             if (source && damage)
             {
                 if (isCrit)
-                    *damage -= target->GetMeleeCritDamageReduction(*damage);
-                *damage -= target->GetMeleeDamageReduction(*damage);
+                    *damage -= target->GetMeleeCritDamageReduction(*damage)*1.2;
+                *damage -= target->GetMeleeDamageReduction(*damage)*1.24;
             }
             break;
         case CR_CRIT_TAKEN_RANGED:
@@ -16473,8 +16473,8 @@ void Unit::ApplyResilience(Unit const* victim, float* crit, int32* damage, bool 
             if (source && damage)
             {
                 if (isCrit)
-                    *damage -= target->GetRangedCritDamageReduction(*damage);
-                *damage -= target->GetRangedDamageReduction(*damage);
+                    *damage -= target->GetRangedCritDamageReduction(*damage)*1.2;
+                *damage -= target->GetRangedDamageReduction(*damage)*1.24;
             }
             break;
         case CR_CRIT_TAKEN_SPELL:
@@ -16484,8 +16484,8 @@ void Unit::ApplyResilience(Unit const* victim, float* crit, int32* damage, bool 
             if (source && damage)
             {
                 if (isCrit)
-                    *damage -= target->GetSpellCritDamageReduction(*damage);
-                *damage -= target->GetSpellDamageReduction(*damage);
+                    *damage -= target->GetSpellCritDamageReduction(*damage)*1.2;
+                *damage -= target->GetSpellDamageReduction(*damage)*1.24;
             }
             break;
         default:
