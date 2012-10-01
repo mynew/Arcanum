@@ -157,13 +157,13 @@ class Object
 
         uint32 GetUInt32Value(uint16 index) const
         {
-            /*ASSERT*/(index < m_valuesCount || PrintIndexError(index, false));
+            ASSERT(index < m_valuesCount || PrintIndexError(index, false));
             return m_uint32Values[index];
         }
 
         uint64 GetUInt64Value(uint16 index) const
         {
-            /*ASSERT*/(index + 1 < m_valuesCount || PrintIndexError(index, false));
+            ASSERT(index + 1 < m_valuesCount || PrintIndexError(index, false));
             return *((uint64*)&(m_uint32Values[index]));
         }
 
